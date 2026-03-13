@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "MW Decorium",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/mwdecorium/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "su.mw.decorium.MWDecoriumClient"
+    ],
+    "main": [
+      "su.mw.decorium.MWDecorium"
+    ]
+  },
+  "mixins": [
+    "mwdecorium.mixins.json",
+    {
+      "config": "mwdecorium.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
