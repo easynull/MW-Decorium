@@ -2,45 +2,31 @@ package su.mw.decorium;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.*;
-import net.minecraft.client.render.model.UnbakedModel;
-import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
+import net.minecraft.block.BlockState;
+import su.mw.decorium.registry.MdBlocks;
 import su.mw.decorium.render.model.CarpenterUnbakedModel;
 
 public final class MWDecoriumClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        MWDecorium.LOGGER.info("Client");
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new ModelResourceProvider() {
-            @Override
-            public @Nullable UnbakedModel loadModelResource(Identifier resourceId, ModelProviderContext context) throws ModelProviderException {
-                MWDecorium.LOGGER.info("Resource requested: {}", resourceId);
-                if (resourceId.getNamespace().equals(MWDecorium.ID)) {
-                    MWDecorium.LOGGER.info("Intercepting resource model: {}", resourceId);
-                    return new CarpenterUnbakedModel(new Identifier("minecraft", "block/cube_all"));
+        ModelLoadingPlugin.register(plugin -> {
+            plugin.registerBlockStateResolver(MdBlocks.CARPENTER_BLOCK, context -> {
+                for (BlockState state : MdBlocks.CARPENTER_BLOCK.getStateManager().getStates()) {
+                    context.setModel(state, new CarpenterUnbakedModel(0));
                 }
-                return null;
-            }
-        });
-
-        // Регистрируем VariantProvider (для идентификаторов с вариантами)
-        ModelLoadingRegistry.INSTANCE.registerVariantProvider(rm -> new ModelVariantProvider() {
-            @Override
-            public @Nullable UnbakedModel loadModelVariant(ModelIdentifier modelId, ModelProviderContext context) throws ModelProviderException {
-                MWDecorium.LOGGER.info("Variant requested: {}", modelId);
-                String path = modelId.getPath();
-                // Убираем часть после '#' (вариант)
-                if (path.contains("#")) {
-                    path = path.substring(0, path.indexOf('#'));
+            });
+//            plugin.registerBlockStateResolver(MdBlocks.CARPENTER_STAIRS, context -> {
+//                for (BlockState state : MdBlocks.CARPENTER_STAIRS.getStateManager().getStates()) {
+//                    context.setModel(state, new CarpenterUnbakedModel(1));
+//                }
+//            });
+            plugin.registerBlockStateResolver(MdBlocks.CARPENTER_SLAB, context -> {
+                for (BlockState state : MdBlocks.CARPENTER_SLAB.getStateManager().getStates()) {
+                    context.setModel(state, new CarpenterUnbakedModel(2));
                 }
-                if (modelId.getNamespace().equals(MWDecorium.ID) && path.equals("block/carpenter_block")) {
-                    MWDecorium.LOGGER.info("Intercepting variant model: {}", modelId);
-                    return new CarpenterUnbakedModel(new Identifier("minecraft", "block/cube_all"));
-                }
-                return null;
-            }
+            });
         });
     }
 }

@@ -20,12 +20,13 @@ import java.util.List;
 public final class CarpenterSlabBlock extends SlabBlock implements Carpenter {
     public CarpenterSlabBlock(Settings settings) {
         super(settings);
-        setDefaultState(getStateManager().getDefaultState().with(CarpenterUtils.PROPERTY, 0).with(TYPE, SlabType.BOTTOM).with(WATERLOGGED, false));
+        setDefaultState(getDefaultState().with(CarpenterUtils.PROPERTY, 0).with(TYPE, SlabType.BOTTOM).with(WATERLOGGED, false));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(CarpenterUtils.PROPERTY);
+        super.appendProperties(builder);
     }
 
     @Override

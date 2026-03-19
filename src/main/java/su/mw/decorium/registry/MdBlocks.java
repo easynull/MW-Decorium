@@ -14,8 +14,8 @@ import su.mw.decorium.registry.blocks.carpenter.CarpenterStairsBlock;
 
 public final class MdBlocks {
     public static final Block CARPENTER_BLOCK = registerBlock("carpenter_block", new CarpenterBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
-//    public static final Block CARPENTER_STAIRS = registerBlock("carpenter_stairs", new CarpenterStairsBlock(CARPENTER_BLOCK.getDefaultState(), AbstractBlock.Settings.copy(CARPENTER_BLOCK)));
-//    public static final Block CARPENTER_SLAB = registerBlock("carpenter_slab", new CarpenterSlabBlock(AbstractBlock.Settings.copy(CARPENTER_BLOCK)));
+    public static final Block CARPENTER_STAIRS = registerBlock("carpenter_stairs", new CarpenterStairsBlock(Blocks.OAK_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS)));
+    public static final Block CARPENTER_SLAB = registerBlock("carpenter_slab", new CarpenterSlabBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB)));
 
     private static <T extends Block> T registerBlock(String name, T block, Item.Settings itemSettings) {
         RegistryKey<Block> blockKey = RegistryKey.of(RegistryKeys.BLOCK, MWDecorium.path(name));

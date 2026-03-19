@@ -12,7 +12,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import su.mw.decorium.MWDecorium;
 import su.mw.decorium.registry.blocks.carpenter.Carpenter;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public final class CarpenterUtils {
         Block block = Block.getBlockFromItem(stack.getItem());
         if (block == Blocks.AIR) return ActionResult.PASS;
 
-        if (block instanceof Carpenter) return ActionResult.PASS;
+        if (block instanceof Carpenter || !block.getDefaultState().isOpaqueFullCube(world, null)) return ActionResult.PASS;
 
         int newTextureId = Registries.BLOCK.getRawId(block);
         int currentTextureId = state.get(PROPERTY);
@@ -44,7 +43,6 @@ public final class CarpenterUtils {
         }
 
         world.setBlockState(pos, state.with(PROPERTY, newTextureId));
-        System.out.println(newTextureId);
         return ActionResult.SUCCESS;
     }
 

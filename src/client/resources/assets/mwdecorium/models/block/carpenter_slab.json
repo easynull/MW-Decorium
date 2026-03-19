@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "mwdecorium:block/carpenter_block",
+    "side": "mwdecorium:block/carpenter_block",
+    "top": "mwdecorium:block/carpenter_block"
+  }
+}

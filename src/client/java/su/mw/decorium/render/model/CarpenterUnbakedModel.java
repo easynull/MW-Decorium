@@ -7,30 +7,33 @@ import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import su.mw.decorium.MWDecorium;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 import java.util.function.Function;
 
-public record CarpenterUnbakedModel(Identifier parentModelId) implements UnbakedModel {
+public record CarpenterUnbakedModel(int id) implements UnbakedModel {
+
     @Override
     public Collection<Identifier> getModelDependencies() {
-        return Set.of(parentModelId);
+        return List.of();
     }
 
     @Override
-    public void setParents(Function<Identifier, UnbakedModel> modelLoader) {
-        modelLoader.apply(parentModelId);
+    public void setParents(Function<Identifier, UnbakedModel> modelGetter) {
     }
 
     @Override
-    public BakedModel bake(Baker loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
-        MWDecorium.LOGGER.info("Baking model for {}", modelId);
-        UnbakedModel parentUnbaked = loader.getOrLoadModel(parentModelId);
-        BakedModel parentBaked = parentUnbaked.bake(loader, textureGetter, rotationContainer, parentModelId);
-        return new CarpenterWrappedBakedModel(parentBaked);
+    public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+        BakedModel base = baker.bake(MWDecorium.path("block/carpenter_block"), rotationContainer);
+        if (id == 1) {
+            base = baker.bake(MWDecorium.path("block/carpenter_stairs"), rotationContainer);
+            return new CarpenterStairsBakedModel(base);
+        } else if (id == 2) {
+            base = baker.bake(MWDecorium.path("block/carpenter_slab"), rotationContainer);
+            return new CarpenterSlabBakedModel(base);
+        }
+        return new CarpenterBlockBakedModel(base);
     }
 }

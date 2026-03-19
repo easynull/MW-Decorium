@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mwdecorium:block/carpenter_slab"
+    },
+    "type=double": {
+      "model": "mwdecorium:block/carpenter_block"
+    },
+    "type=top": {
+      "model": "mwdecorium:block/carpenter_slab_top"
+    }
+  }
+}

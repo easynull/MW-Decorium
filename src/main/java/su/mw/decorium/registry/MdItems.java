@@ -15,9 +15,9 @@ import su.mw.decorium.MWDecorium;
 import static su.mw.decorium.registry.MdBlocks.*;
 
 public final class MdItems {
-//    public static final RegistryKey<ItemGroup> TAB = registerTab("hemomancy", Text.translatable("tab.hemomancy"), CARPENTER_BLOCK,
-//            CARPENTER_BLOCK, CARPENTER_SLAB, CARPENTER_STAIRS
-//    );
+    public static final RegistryKey<ItemGroup> TAB = registerTab("hemomancy", Text.translatable("tab.hemomancy"), CARPENTER_BLOCK,
+            CARPENTER_BLOCK, CARPENTER_SLAB
+    );
 
     private static <T extends Item> T registerItem(String name, T item) {
         var id = MWDecorium.path(name);

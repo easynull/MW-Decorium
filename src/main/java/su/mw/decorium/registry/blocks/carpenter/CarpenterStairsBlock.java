@@ -22,13 +22,13 @@ import java.util.List;
 public final class CarpenterStairsBlock extends StairsBlock implements Carpenter {
     public CarpenterStairsBlock(BlockState state, Settings settings) {
         super(state, settings);
-        setDefaultState(getStateManager().getDefaultState().with(CarpenterUtils.PROPERTY, 0).with(FACING, Direction.NORTH).with(HALF, BlockHalf.BOTTOM).with(SHAPE, StairShape.STRAIGHT).with(WATERLOGGED, false));
+        setDefaultState(getDefaultState().with(CarpenterUtils.PROPERTY, 0).with(FACING, Direction.NORTH).with(HALF, BlockHalf.BOTTOM).with(SHAPE, StairShape.STRAIGHT).with(WATERLOGGED, false));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        //builder.add(CarpenterUtils.PROPERTY);
         super.appendProperties(builder);
-        builder.add(CarpenterUtils.PROPERTY);
     }
 
     @Override
